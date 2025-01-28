@@ -1,11 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Carte Leaflet et Panneau de Requête</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+    <!-- Barre de navigation -->
+    <div class="navbar" onclick="window.location.href='../index.html'" style="cursor: pointer;">
+        systeme d'information geographique pour les usagers des infrastructures sanitaires cas de la ville de THIES
+    </div>
+
+    <!-- Corps principal -->
+    <div class="main">
+        <!-- Panneau de requête -->
+        <div class="left-panel">
+            <h2>Panneau de requête</h2>
+            <p>Utilisez ce panneau pour entrer vos requêtes ou pour configurer les options d'affichage de la carte.</p>
+            <!-- Ajoutez ici les éléments de formulaire ou autres contenus pour les requêtes -->
+        </div>
+
+        <!-- Carte Leaflet -->
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+
+        <!-- Panneau de droit -->
+        <div class="right-panel">
+            <div class="button-bar">
+                <button onclick="loadContent('information')">Information</button>
+                <button onclick="loadContent('imprimer')">Imprimer</button>
+                <button onclick="loadContent('liens')">Liens</button>
+                <button onclick="loadContent('propos')">À propos</button>
+            </div>
+            <div id="panel-content">
+            </div>
+        </div>
+    </div>
+
+    <!-- Pied de page -->
+    <div class="footer" onclick="location.reload()" style="cursor: pointer;">
+        © Projet Fin Cycle licence en géomatique 2024 | Samba SIDIBE & Mamadou SOW
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script>
+        // Initialisation de la carte Leaflet
+        var map = L.map('map').setView([14.80910,-16.93619], 13); // Coordonnées pour Dakar
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Fonction pour charger le contenu du panneau
+        function loadContent(section) {
+            const content = document.getElementById('panel-content');
+            switch (section) {
+                case 'information':
+                    content.innerHTML = '<h2>Information</h2><p>Voici des informations sur le projet.</p>';
+                    break;
+                case 'imprimer':
+                    content.innerHTML = '<h2>Imprimer</h2><p>Instructions pour imprimer.</p>';
+                    break;
+                case 'liens':
+                    content.innerHTML = '<h2>Liens</h2><p><a href="https://www.example.com">Exemple de lien</a></p>';
+                    break;
+                case 'propos':
+                    content.innerHTML = '<h2>À propos</h2><p>Des informations sur ce projet.</p>';
+                    break;
+                default:
+                    content.innerHTML = '<h2>Panneau de droite</h2><p>Ceci est un panneau supplémentaire à droite. Vous pouvez y mettre d\'autres informations ou options.</p>';
+            }
+        }
+        loadContent('information'); 
+    </script>
 </body>
 </html>
